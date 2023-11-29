@@ -3,6 +3,9 @@ import { body } from "express-validator";
 import {
   Login,
   Signup,
+  UpdateProfile,
+  UserList,
+  getProfileData,
 } from "../controllers/UserController";
 import CONSTANTS from "../utils/Constants";
 import { authenticate } from "../middleware/AuthMiddleware";
@@ -53,5 +56,9 @@ router.post(
   ],
   Signup
 );
+
+router.get("/get", authenticate, UserList);
+router.get("/get-profile", authenticate, getProfileData);
+router.patch("/update", authenticate, UpdateProfile);
 
 export { router as UsersRoute };

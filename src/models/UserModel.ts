@@ -14,7 +14,10 @@ export interface IUser extends mongoose.Document {
     city?: string;
     state?: string;
     country?: string;
-    coordinates?: [number];
+    coordinates?: {
+      type?: string;
+      coordinates:[number];
+    };
   }
 }
 
