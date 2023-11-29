@@ -11,24 +11,24 @@ import multer, { StorageEngine } from "multer";
 
 const router = Router();
 
-const storage: StorageEngine = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, '/tmp/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-  }
-});
+// const storage: StorageEngine = multer.diskStorage({
+//   destination: function(req, file, cb) {
+//     cb(null, '/tmp/');
+//   },
+//   filename: function(req, file, cb) {
+//     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+//   }
+// });
 
-const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    req.fileValidationError = 'Only image files are allowed!';
-    return cb(null, false);
-  }
-  cb(null, true);
-};
+// const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+//     req.fileValidationError = 'Only image files are allowed!';
+//     return cb(null, false);
+//   }
+//   cb(null, true);
+// };
 
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+// const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 router.post("/login", [
   body("password", CONSTANTS.FIELD_VALIDATION.COMMON.PASSWORD).isLength({
@@ -51,7 +51,6 @@ router.post(
     }),
     body("email", CONSTANTS.FIELD_VALIDATION.COMMON.EMAIL).isEmail(),
   ],
-  upload.single('file'),
   Signup
 );
 

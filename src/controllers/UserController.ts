@@ -42,7 +42,7 @@ export const Signup: ExpressHandler = async (req, resp, next) => {
 
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = password && (await bcrypt.hash(password, salt));
-    const user = new User({ email, password: hashedPassword, name, phone, mobile, zipCode, address, profilePic: req.file?.path });
+    const user = new User({ email, password: hashedPassword, name, phone, mobile, zipCode, address });
     await user.save();
 
     const token = generateToken(user._id);
